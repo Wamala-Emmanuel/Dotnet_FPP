@@ -33,14 +33,15 @@ namespace RestAPICoreDemo
                     });
                 });
             services.AddControllers();
-            services.AddDbContextPool<EmployeeContext>(options =>
+            services.AddDbContext<EmployeeContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EmployeeDBContextConnectionString")));
             services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EmployeeContext dataContext)
         {
+            dataContext.Database.EnsureCreated();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -48,8 +49,8 @@ namespace RestAPICoreDemo
             app.UseCors(_allowedSpecificOrigins);
 
 
-            app.UseRouting();
 
+            app.UseRouting();
 
             app.UseAuthorization();
 
