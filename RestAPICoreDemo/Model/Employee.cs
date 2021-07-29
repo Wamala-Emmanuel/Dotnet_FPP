@@ -2,7 +2,7 @@
 
 namespace RestAPICoreDemo.Model
 {
-    
+
     public class Employee
     {
         [Key]

@@ -21,17 +21,17 @@ namespace RestAPICoreDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        services.AddCors(options =>
-            {
-                options.AddPolicy(_allowedSpecificOrigins, builder =>
+            services.AddCors(options =>
                 {
-                    builder
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .WithOrigins("http://localhost:8080");
+                    options.AddPolicy(_allowedSpecificOrigins, builder =>
+                    {
+                        builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("https://client-fpp.azurewebsites.net/");
+                    });
                 });
-            });
             services.AddControllers();
             services.AddDbContextPool<EmployeeContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EmployeeDBContextConnectionString")));
@@ -46,7 +46,7 @@ namespace RestAPICoreDemo
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(_allowedSpecificOrigins);
-            
+
 
             app.UseRouting();
 
