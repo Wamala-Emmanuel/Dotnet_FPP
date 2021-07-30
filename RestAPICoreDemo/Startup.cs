@@ -29,7 +29,7 @@ namespace RestAPICoreDemo
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("https://client-fpp.azurewebsites.net/");
+                        .WithOrigins("server-01.fpp.com", "server-02.fpp.com");
                     });
                 });
             services.AddControllers();
